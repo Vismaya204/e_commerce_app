@@ -38,6 +38,42 @@ class PagesState extends State<Pages> {
     super.initState();
     favoriteIds = widget.initialFavorites ?? {};
     cartItems = widget.initialCartItems ?? [];
+    // Load both cart items and favorites from Firestore
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    try {
+      // Load favorites
+      final favSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('favorites')
+          .get();
+
+      setState(() {
+        favoriteIds = favSnapshot.docs.map((doc) => doc.id).toSet();
+      });
+
+      // Load cart items
+      final cartSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .collection('cart')
+          .get();
+
+      setState(() {
+        cartItems = cartSnapshot.docs.map((doc) => {
+          'id': doc.id,
+          ...doc.data(),
+        }).toList();
+      });
+    } catch (e) {
+      print('Error loading user data: $e');
+    }
   }
 
   void updateProducts(List<DocumentSnapshot> products) {
@@ -115,36 +151,39 @@ class PagesState extends State<Pages> {
   // Add to cart and navigate to bag
   Future<void> addToCartAndNavigate(Map<String, dynamic> product) async {
     final user = FirebaseAuth.instance.currentUser;
-    if (user == null) return;
+    if (user == null) {
+      throw Exception("User not logged in");
+    }
 
     try {
+      // Add to Firestore
       final cartRef = FirebaseFirestore.instance
           .collection('users')
           .doc(user.uid)
           .collection('cart');
           
-      await cartRef.doc(product['id']).set({
+      final cartProduct = {
         ...product,
         'quantity': 1,
         'timestamp': FieldValue.serverTimestamp(),
-      });
+      };
+          
+      await cartRef.doc(product['id']).set(cartProduct);
 
+      // Update local state
       setState(() {
-        // Check if product is already in cart
         final existingIndex = cartItems.indexWhere((item) => item['id'] == product['id']);
         if (existingIndex >= 0) {
-          cartItems[existingIndex] = product;
+          cartItems[existingIndex] = cartProduct;
         } else {
-          cartItems.add(product);
+          cartItems.add(cartProduct);
         }
-      });
-
-      // Switch to the bag tab
-      setState(() {
+        // Switch to the bag tab
         index = 2; // Index of the bag tab
       });
     } catch (e) {
       print('Error adding to cart: $e');
+      throw Exception('Failed to add to cart: $e');
     }
   }
 

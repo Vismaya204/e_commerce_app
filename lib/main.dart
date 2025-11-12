@@ -16,7 +16,8 @@ import 'package:e_commerce_app/shop/women.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() async{WidgetsFlutterBinding.ensureInitialized();
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
 await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 ); 
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
           return MaterialPageRoute(
             builder: (context) => Detailproduct(
               product: args['product'],
-              parentContext: args['parentContext'], pagesState: null,
+              pagesState: args['pagesState'],
             ),
           );
         }

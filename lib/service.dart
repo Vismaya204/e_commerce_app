@@ -219,15 +219,37 @@ Future<void> login({
     // Load favorites and cart items after login
     if (userCredential.user != null) {
       final userId = userCredential.user!.uid;
-      final favorites = await getFavorites(userId);
-      final cartItems = await getCartItems(userId);
       
+      // Load favorites
+      final favoritesSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('favorites')
+          .get();
+      
+      final favorites = favoritesSnapshot.docs.map((doc) => doc.id).toSet();
+      
+      // Load cart items
+      final cartItems = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('cart')
+          .get();
+          
+      final cartItemsList = cartItems.docs.map((doc) => {
+        'id': doc.id,
+        ...doc.data(),
+      }).toList();
+
+      // Navigate to main page with loaded data
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Pages(
-          initialFavorites: favorites,
-          initialCartItems: cartItems,
-        )),
+        MaterialPageRoute(
+          builder: (context) => Pages(
+            initialFavorites: favorites,
+            initialCartItems: cartItemsList,
+          ),
+        ),
       );
     }
   } catch (e) {

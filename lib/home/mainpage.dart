@@ -4,6 +4,7 @@ import 'package:e_commerce_app/selectedpage.dart';
 import 'package:e_commerce_app/shop/categories.dart';
 import 'package:e_commerce_app/shop/detailpage.dart';
 import 'package:e_commerce_app/shop/model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -201,6 +202,15 @@ class _HomeState extends State<Home> {
                                     product: product,
                                   ),
                                 ),
+                              ).then((_) {
+                                // Refresh state when returning from detail page
+                                setState(() {});
+                              });
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Error: Could not access cart. Please try again."),
+                                ),
                               );
                             }
                           },
@@ -246,14 +256,22 @@ class _HomeState extends State<Home> {
                                                 : Icons.favorite_border,
                                             color: isFav ? Colors.red : Colors.grey,
                                           ),
-                                          onPressed: () {
-                                            setState(() {
-                                              if (isFav) {
-                                                widget.favoriteIds.remove(product.id);
-                                              } else {
-                                                widget.favoriteIds.add(product.id);
-                                              }
-                                            });
+                                          onPressed: () async {
+                                            final user = FirebaseAuth.instance.currentUser;
+                                            if (user == null) {
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                const SnackBar(
+                                                  content: Text("Please login to add favorites"),
+                                                ),
+                                              );
+                                              return;
+                                            }
+
+                                            final state = context.findAncestorStateOfType<PagesState>();
+                                            if (state != null) {
+                                              await state.toggleFavorite(product.id);
+                                              setState(() {}); // Refresh UI
+                                            }
                                           },
                                         ),
                                       ),
