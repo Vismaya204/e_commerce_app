@@ -6,19 +6,21 @@ class Success extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Center(
-            child: SizedBox(height: double.infinity,width: double.infinity,
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Image.asset("assets/successimg.png"),
-              ),
-            ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              
+                
+                 Image.asset("assets/successimg.png"),
+                    
+                                 
+                 
+              
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
