@@ -18,7 +18,7 @@ class _SignupState extends State<Signup> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               "Sign up",

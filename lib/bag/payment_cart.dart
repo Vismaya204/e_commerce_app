@@ -58,6 +58,30 @@ class _PaymentCartState extends State<PaymentCart> {
                 child: Image.asset("assets/payimg.jpeg"),
               ),
             ),
+          ), SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: SizedBox(
+              width: double.infinity,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Image.asset("assets/gpayimg.jpeg"),
+              ),
+            ),
+          ), SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: SizedBox(
+              width: double.infinity,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Image.asset("assets/visalogo.png"),
+              ),
+            ),
           ),
         ],
       ),

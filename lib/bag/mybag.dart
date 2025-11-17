@@ -15,7 +15,6 @@ class _BagState extends State<Bag> {
   @override
   void initState() {
     super.initState();
-    // Initialize quantity for each product
     products = widget.selectedProducts.map((product) {
       return {...product, 'quantity': product['quantity'] ?? 1};
     }).toList();
@@ -61,34 +60,18 @@ class _BagState extends State<Bag> {
                       return Card(
                         margin: const EdgeInsets.all(10),
                         child: ListTile(
-                          leading: Image.network(
-                            product['image'],
-                            width: 60,
-                            fit: BoxFit.cover,
-                          ),
+                          leading: Image.network(product['image'], width: 60),
                           title: Text(product['name']),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          subtitle: Row(
                             children: [
-                              Text(
-                                "Size: ${product['size']} | Color: ${product['color']}",
+                              IconButton(
+                                icon: const Icon(Icons.remove),
+                                onPressed: () => decrementQuantity(index),
                               ),
-                              const SizedBox(height: 4),
-                              Row(
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.remove),
-                                    onPressed: () => decrementQuantity(index),
-                                  ),
-                                  Text(
-                                    product['quantity'].toString(),
-                                    style: const TextStyle(fontSize: 16),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.add),
-                                    onPressed: () => incrementQuantity(index),
-                                  ),
-                                ],
+                              Text(product['quantity'].toString()),
+                              IconButton(
+                                icon: const Icon(Icons.add),
+                                onPressed: () => incrementQuantity(index),
                               ),
                             ],
                           ),
@@ -107,39 +90,21 @@ class _BagState extends State<Bag> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        "Total Amount",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        "₹${totalAmount.toStringAsFixed(2)}",
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
-                        ),
-                      ),
+                      const Text("Total Amount", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text("₹${totalAmount.toStringAsFixed(2)}", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.green)),
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 219, 48, 34),foregroundColor: Colors.white
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MybagCheckout()),
-                      );
-                    },
-                    child: Text("CHECK OUT"),
-                  ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MybagCheckout(cartData: products),
+                      ),
+                    );
+                  },
+                  child: const Text("CHECK OUT"),
                 ),
               ],
             ),

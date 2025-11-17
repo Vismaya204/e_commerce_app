@@ -83,7 +83,7 @@ class _HomeState extends State<Home> {
                           MaterialPageRoute(builder: (context) => Salepage()),
                         );
                       },
-                      child: const Text("Check"),
+                      child:  Text("Check",style: TextStyle(color: Colors.white),),
                     ),
                   ),
                 ],
