@@ -47,7 +47,7 @@ class _BagState extends State<Bag> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("My Bag")),
+      appBar: AppBar(iconTheme: IconThemeData(color: Colors.white),backgroundColor: Colors.red,title: const Text("My Bag",style: TextStyle(color: Colors.white),)),
       body: products.isEmpty
           ? const Center(child: Text("🛍️ Your bag is empty"))
           : Column(
@@ -95,7 +95,7 @@ class _BagState extends State<Bag> {
                     ],
                   ),
                 ),
-                ElevatedButton(
+                ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.red,foregroundColor: Colors.white),
                   onPressed: () {
                     Navigator.push(
                       context,

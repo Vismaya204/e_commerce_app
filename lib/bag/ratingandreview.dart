@@ -47,8 +47,8 @@ class _RatingandreviewState extends State<Ratingandreview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Rating & Review"),
+      appBar: AppBar(iconTheme: IconThemeData(color: Colors.white),
+        title: const Text("Rating & Review",style: TextStyle(color: Colors.white),),
         backgroundColor: Colors.redAccent,
       ),
       body: Padding(

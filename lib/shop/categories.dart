@@ -49,19 +49,19 @@ class _CategoriesState extends State<Categories>
         return false; // prevent normal pop
       },
       child: Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(iconTheme: IconThemeData(color: Colors.white),
           backgroundColor: const Color.fromARGB(255, 219, 48, 34),
-          title: const Text("Categories"),
+          title: const Text("Categories",style: TextStyle(color: Colors.white),),
           bottom: TabBar(
             isScrollable: true,
-            labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+            labelStyle: const TextStyle(fontWeight: FontWeight.bold,color: Colors.black),
             controller: tabController,
             tabs: categories
                 .map(
                   (category) => Tab(
                     child: Text(
                       category,
-                      style: GoogleFonts.poppins(fontSize: 16),
+                      style: GoogleFonts.poppins(fontSize: 16,color: Colors.white),
                     ),
                   ),
                 )
@@ -70,7 +70,7 @@ class _CategoriesState extends State<Categories>
         ),
         body: TabBarView(
           controller: tabController,
-          children: const [
+          children:  [
             Women(),
             Men(),
             Kid(),

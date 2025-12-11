@@ -32,7 +32,7 @@ class Registerscreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => Signup()),
                   );
                 },
-                child: Text("Sign up"),
+                child: Text("Sign up",style: TextStyle(fontWeight: FontWeight.bold),),
               ),
             ),
             SizedBox(height: 20),
@@ -46,7 +46,7 @@ class Registerscreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => Login()),
                   );
                 },
-                child: Text("Login"),
+                child: Text("Login",style: TextStyle(fontWeight: FontWeight.bold),),
               ),
             ),
           ],

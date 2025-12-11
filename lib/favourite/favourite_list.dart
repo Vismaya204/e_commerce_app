@@ -28,8 +28,8 @@ class _FavouriteListState extends State<FavouriteList> {
     return WillPopScope(
       onWillPop: _onWillPop, // ✅ intercept system back press
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Favourites"),
+        appBar: AppBar(iconTheme: IconThemeData(color: Colors.white),backgroundColor: Colors.red,
+          title: const Text("Favourites",style: TextStyle(color: Colors.white),),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {

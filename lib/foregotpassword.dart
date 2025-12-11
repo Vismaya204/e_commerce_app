@@ -14,9 +14,9 @@ class _ForegotpasswordState extends State<Foregotpassword> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center,
           children: [SizedBox(height: 20),
-            Text("Foregot password",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),), SizedBox(height: 20),
+            Text("Forgot password",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),), SizedBox(height: 20),
             Text("Please enter your email to receive a link to create a new password via email"),SizedBox(height: 20),
             TextFormField(controller: emailController,
             validator: (value) {
@@ -32,13 +32,18 @@ class _ForegotpasswordState extends State<Foregotpassword> {
                 ),
               ),
             ),SizedBox(height: 20),
-            ElevatedButton( 
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 222, 39, 26),
-                foregroundColor: Colors.white,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(height: 50,width: double.infinity,
+                child: ElevatedButton( 
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 222, 39, 26),
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: () {},
+                  child: Text("SEND"),
+                ),
               ),
-              onPressed: () {},
-              child: Text("SEND"),
             ),SizedBox(height: 30),
           ],
         ),

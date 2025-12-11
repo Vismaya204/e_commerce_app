@@ -66,7 +66,7 @@ class _MybagCheckoutState extends State<MybagCheckout> {
     final total = getTotalAmount();
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Checkout")),
+      appBar: AppBar(backgroundColor: Colors.red,iconTheme: IconThemeData(color: Colors.white),title: const Text("Checkout",style: TextStyle(color: Colors.white),)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

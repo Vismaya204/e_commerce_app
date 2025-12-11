@@ -18,7 +18,8 @@ class _SignupState extends State<Signup> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               "Sign up",
@@ -86,19 +87,39 @@ class _SignupState extends State<Signup> {
               ),
             ),
             SizedBox(height: 20),
-            SizedBox(height: 48,width: 343,
+            SizedBox(
+              height: 48,
+              width: 343,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 219, 48, 34),foregroundColor: Colors.white
+                  backgroundColor: const Color.fromARGB(255, 219, 48, 34),
+                  foregroundColor: Colors.white,
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Login(),));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Login()),
+                  );
                 },
                 child: Text("Login"),
               ),
             ),
             SizedBox(height: 30),
             Text("Or sign up with social account"),
+          Row(
+  mainAxisSize: MainAxisSize.min,
+  children: [
+    CircleAvatar(
+      radius: 20, // smaller radius looks cleaner
+      backgroundImage: AssetImage("assets/gogl.jpg"), // fixed path
+    ),
+    SizedBox(width: 40), // spacing between icons
+    CircleAvatar(
+      radius: 30,
+      backgroundImage: AssetImage("assets/facebookimg.png"), // correct path
+    ),
+  ],
+),
           ],
         ),
       ),

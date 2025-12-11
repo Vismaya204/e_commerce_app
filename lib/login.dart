@@ -80,6 +80,20 @@ class _LoginState extends State<Login> {
             ),
             SizedBox(height: 30),
             Text("Or login with social account"),
+             Row(
+  mainAxisSize: MainAxisSize.min,
+  children: [
+    CircleAvatar(
+      radius: 20, // smaller radius looks cleaner
+      backgroundImage: AssetImage("assets/gogl.jpg"), // fixed path
+    ),
+    SizedBox(width: 40), // spacing between icons
+    CircleAvatar(
+      radius: 30,
+      backgroundImage: AssetImage("assets/facebookimg.png"), // correct path
+    ),
+  ],
+),
           ],
         ),
       ),
